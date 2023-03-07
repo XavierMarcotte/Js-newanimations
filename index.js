@@ -150,3 +150,137 @@ window.addEventListener('load', ()=> {
 
 //--------------------------------------------------
 // forEach
+
+const boxes = document.querySelectorAll('.box');
+// console.log(boxes);
+// On ne peut pas ajouter un eventlistener sur plusieurs elements
+boxes.forEach((box) => {
+    box.addEventListener('click', (e) => {
+        // console.log(e.target);
+        e.target.style.transform = "scale(0.7)";
+    })
+})
+
+
+
+//--------------------------------------------------
+// addEventListener vs onCLick
+
+// document.body.onclick = function () {
+//     console.log("Click !");
+// }
+// avec deux "onclick" ce sera que le deuxieme evenement onclick définit qui aura lieu : le deuxieme evenement écrase le premier. Prefere donc les addEventlistener car on peut en emttre plusieurs sans qu'ils s'écrasent entre eux.
+
+
+// Bubbling => evenement qui arrive a la fin (de base l'addEventListener est paramétré en mode Bubbling)
+document.body.addEventListener('click', () => {
+    console.log("click1");
+}, false)
+
+// Usecapture => evenement qui arrive au debut
+document.body.addEventListener('click', () => {
+    console.log("click2");
+}, true)
+
+// Le useCapture s'execute en premier et le bubbling en dernier, le false n'est meme pas utile pour le click1 car le true a lui seul permet au click2 de s'executer en premier
+
+
+//--------------------------------------------------
+// Stop propagation
+
+questionContainer.addEventListener('click', (e) => {
+    // alert('test');
+    e.stopPropagation();
+})
+// le click1 n'est pas déclenché => on a stoppé la propagation
+
+
+//--------------------------------------------------
+// le BOM
+
+// console.log(window.innerHeight);
+// console.log(window.scrollY);
+
+// window.open("http://google.com", "cours js", "height=200, width= 400");
+// window.close()
+
+// Evenements adossés à window
+// alert('yo')
+
+// confirm
+btn2.addEventListener('click', () => {
+    confirm('Voulez vous vraiment vous tromper ?')
+})
+
+// prompt
+btn1.addEventListener('click', () => {
+    let answer = prompt ('Entrez votre nom !')
+    // console.log(answer);
+    questionContainer.innerHTML += "<h3>Bravo " + answer + "</h3>"
+})
+
+// TimeRanges, compte a rebours
+setTimeout(() => {
+    //logique a executer
+    questionContainer.style.borderRadius = "300px"
+}, 2000)
+
+let interval = setInterval(() => {
+    document.body.innerHTML +=
+    `
+    <div class='box'> 
+        <h2>Nouvelle boîte!</h2>
+    </div>
+    `
+}, 10000)
+
+
+document.body.addEventListener('click', (e) => {
+    // e.target.remove();
+    clearInterval(interval);
+})
+
+// Certaines fonctionnalités ajoutées plus ahut dans le code ne marche pas (comme "vous appuyez sur la taouche") --> bizarre
+
+
+
+//Location
+console.log(location.href); 
+console.log(location.host); 
+console.log(location.pathname); 
+console.log(location.search); 
+// location.replace('http://lequipe.fr');
+
+
+// window.onload= () => {
+//     location.href = "http://lequipe.fr";
+// }
+
+// navigteur 
+// console.log(navigator.userAgent);
+//  on peut avoir la position de l'utilisateur https://developer.mozilla.org/fr/docs/Web/API/Geolocation/getCurrentPosition
+
+
+var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+  
+function success(pos) {
+    var crd = pos.coords;
+  
+    console.log('Votre position actuelle est :');
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude : ${crd.longitude}`);
+    console.log(`La précision est de ${crd.accuracy} mètres.`);
+  }
+  
+function error(err) {
+    console.warn(`ERREUR (${err.code}): ${err.message}`);
+  }
+  
+  navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+//   code pour obtenir la position de quelqu'un
