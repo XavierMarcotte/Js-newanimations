@@ -243,8 +243,9 @@ document.body.addEventListener('click', (e) => {
 // Certaines fonctionnalités ajoutées plus ahut dans le code ne marche pas (comme "vous appuyez sur la taouche") --> bizarre
 
 
-
+//--------------------------------------------------
 //Location
+
 console.log(location.href); 
 console.log(location.host); 
 console.log(location.pathname); 
@@ -260,7 +261,7 @@ console.log(location.search);
 // console.log(navigator.userAgent);
 //  on peut avoir la position de l'utilisateur https://developer.mozilla.org/fr/docs/Web/API/Geolocation/getCurrentPosition
 
-
+// Ce bout de code  a été copier coller
 var options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -284,3 +285,25 @@ function error(err) {
 
 
 //   code pour obtenir la position de quelqu'un
+
+//--------------------------------------------------
+//History 
+
+console.log(window.history);
+
+window.history.back();
+// pour revenir a la page précedente
+// a essayé en mettant l'url dans un onglet sur lequel j'ai déja lanc" un site --> on revient arrière
+// On peut également faire : 
+history.go(-1);
+// le chiffre entre parenthèse est le nombre de page dont on reviens en arrière
+
+
+//--------------------------------------------------
+// setproperty
+// On donne une valeur aux variables déclarées dans le nav:after en css
+
+window.addEventListener('mousemove', (e) => {
+    nav.style.setProperty('--x', e.layerX + "px")
+    nav.style.setProperty('--y', e.layerY + "px")
+})
